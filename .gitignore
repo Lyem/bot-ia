@@ -1,0 +1,6 @@
+__pycache__
+.pytest_cache
+.env
+notas.db
+database.sqlite3
+.vscode
