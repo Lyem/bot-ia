@@ -1,38 +1,35 @@
-from chatterbot import ChatBot
+import os
 from chatterbot.trainers import ListTrainer
+from .train import train, train2, train3, train4, train5, train6, train7
+from chatterbot import ChatBot, comparisons, response_selection, filters
 
-# Criando uma lista de frases para treinar o bot
-conversa = [
-    'Oi',
-    'Oi, tudo bem com você ? Meu nome é Felix Chatbot. Sou o assistente virtual da empresa Catnet em que posso ajuda-lo hoje?',
-    'Olá',
-    'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
-    'Bom dia',
-    'Bom dia! Sou o Felix Chatbot. Assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
-    'Boa Tarde',
-    'Boa Tarde! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet como posso ajuda-lo hoje?',
-    'Boa Noite',
-    'Boa Noite! Meu nome é Felix Chatbot. Sou assistente virtual da empresa CatNet em que posso ser util hoje ?',
-    'Quero contratar planos',
-    'Vi que você digitou planos, legal, mas primeiro para dar continuidade a seu atendimento, preciso saber se você ja tem cadastro conosco, poderia me informar seu CPF ?',
-    'Contratar planos',
-    'Contratar planos, legal, mas primeiro preciso saber se você ja tem cadastro conosco, poderia me informar seu CPF ?',
-    'planos',
-    'Você disse planos, poderia me informar seu CPF, preciso saber se você ja tem cadastro conosco',
-    'financeiro',
-    'Vi que você digitou Financeiro, legal, mas primeiro para dar continuidade a seu atendimento, preciso saber se você ja tem cadastro conosco, poderia me informar seu CPF ?',
-    'suporte tecnico',
-    'Suporte Técnico, legal, mas primeiro preciso saber se você ja tem cadastro conosco, poderia me informar seu CPF ?',    
-]
+path = os.path.join(os.getcwd(), 'src', 'core',
+                            'text_generation', 'infra', 'chatter')
 chatbot = ChatBot(
     "FelixBot",
     storage_adapter="chatterbot.storage.SQLStorageAdapter",
-    database_uri="sqlite:///database.sqlite3",
+    database_uri=f"sqlite:///{os.path.join(path, 'database.sqlite3')}",
+    logic_adapters=[
+        {
+            'import_path': 'chatterbot.logic.BestMatch',
+            'statement_comparison_function': comparisons.LevenshteinDistance,
+            'response_selection_method': response_selection.get_first_response,
+            'default_response': 'Desculpe eu não entendi',
+            'maximum_similarity_threshold': 0.90
+        }
+    ],
+    read_only=True,
 )
 
 trainer = ListTrainer(chatbot)
 
-trainer.train(conversa)
+trainer.train(train)
+trainer.train(train2)
+trainer.train(train3)
+trainer.train(train4)
+trainer.train(train5)
+trainer.train(train6)
+trainer.train(train7)
 
 class Generate:
     
