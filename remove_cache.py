@@ -9,7 +9,6 @@ def remove_cache_folders():
         for folder in dirs:
             if folder == "__pycache__" or folder == ".pytest_cache":
                 folder_path = os.path.join(root, folder)
-                print(f"Remove folder: {folder_path}")
                 shutil.rmtree(folder_path)
 
 
