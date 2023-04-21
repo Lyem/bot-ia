@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "bot-ia"
+version = "0"
+description = ""
+authors = ["lyem <rfael403@gmail.com>"]
+readme = "README.md"
+packages = []
+
+[tool.poetry.dependencies]
+python = "3.8.0"
+spacy = "^3.5.2"
+peewee = "^3.16.0"
+openai = "^0.27.4"
+pandas = "^2.0.0"
+python-dotenv = "^1.0.0"
+numpy = "^1.22.4"
+telebot = "^0.0.5"
+pytelegrambotapi = "^4.11.0"
+chatterbot = "^1.0.8"
+pdfkit = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+autopep8 = "^2.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
