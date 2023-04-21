@@ -6,7 +6,8 @@ RUN apt update && apt install -y --no-install-recommends \
     wget \
     gcc \
     libmariadb-dev \
-    vim
+    vim \
+    wkhtmltopdf
 
 RUN useradd -ms /bin/bash python
 
