@@ -1,5 +1,9 @@
+import os
 from telebot import types
 from .buttons import Buttons
+from core.boleto.application.use_cases import Generate_pdf
+from core.clients.application.use_cases import ClientLogged
+from core.payments.application.use_cases import GetAllByClient
 
 class Menus:
 
@@ -11,19 +15,30 @@ class Menus:
         menu_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         menu_markup.row('Planos')
         menu_markup.row('Suporte', 'Boletos')
-        menu_markup.row('Cancelar atendimento')
-        self.bot.send_message(chat_id=message.chat.id, text='Escolha uma opção:', reply_markup=menu_markup)
+        self.bot.send_message(chat_id=message.chat.id, text='Selecione uma opção:', reply_markup=menu_markup)
 
     def process_choice(self, message) -> bool:
         if message.text == 'Planos':
-            self.buttons.planos(message)
+            self.buttons.plans(message)
             return True
         elif message.text == 'Suporte':
-            self.bot.send_message(chat_id=message.chat.id, text='Você selecionou a suporte')
+            self.bot.send_message(chat_id=message.chat.id, text='Entre em contato com o nosso especialista')
+            self.bot.send_contact(message.chat.id, '5511123456789', 'Suporte João', last_name='Silva')
             return True
         elif message.text == 'Boletos':
-            self.bot.send_message(chat_id=message.chat.id, text='Você selecionou a boletos')
-            return True
-        elif message.text == 'Cancelar atendimento':
+            if(ClientLogged().execute(message.chat.id)):
+                self.bot.send_message(chat_id=message.chat.id, text='Verificando boletos', reply_markup=types.ReplyKeyboardRemove())
+                payments = GetAllByClient().execute(message.chat.id)
+                if(len(payments) < 1):
+                    self.bot.send_message(chat_id=message.chat.id, text='Você não tem pagamentos pendentes')
+                for pay in payments:
+                    if(pay.is_pay == False):
+                        self.bot.send_message(chat_id=message.chat.id, text=f'boleto do plano {pay.name}')
+                        pdf = Generate_pdf().execute(str(message.chat.id), pay.name.replace('Mb', ''))
+                        self.bot.send_document(chat_id=message.chat.id, document=open(pdf, 'rb'))
+                        os.remove(pdf)
+                self.send_main_menu(message)
+            else:
+                self.buttons.is_client(message)
             return True
         return False

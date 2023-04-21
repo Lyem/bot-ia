@@ -1,9 +1,13 @@
 import os
-from telebot import TeleBot
-from dotenv import load_dotenv
 from .menus import Menus
+from telebot import TeleBot
+from .buttons import Buttons
+from dotenv import load_dotenv
 from .forms import user_data, init_form, save_answer
+from core.boleto.application.use_cases import Generate_pdf
+from core.clients.application.use_cases import ClientLogged
 from core.text_matcher.application.use_cases import Matcher
+from core.payments.application.use_cases import CreatePayment
 from core.text_generation.application.use_cases import TextGeneration
 
 
@@ -16,16 +20,41 @@ class Telegram:
 
         menu = Menus(bot)
 
+        buttons = Buttons(bot)
+
+        clientLogged = ClientLogged()
 
         @bot.message_handler(commands=['start'])
         def send_welcome(message):
             bot.reply_to(
-                message, '''Olá! Eu sou o BotFelix, o assistente virtual da Cat Net, a empresa de internet que oferece os melhores planos para você. Comigo, você pode ficar por dentro dos preços dos nossos serviços e também gerar PDFs com informações sobre seus pagamentos pendentes. Além disso, se precisar de ajuda, posso direcioná-lo para o nosso suporte para esclarecer qualquer dúvida ou resolver qualquer problema. Estou aqui para ajudá-lo a ter a melhor experiência com nossos serviços. Vamos começar!''')
+                message, 'Oi, tudo bem com você ? Meu nome é Felix Chatbot. Sou o assistente virtual da empresa Catnet em que posso ajuda-lo hoje?')
             menu.send_main_menu(message)
+        
+        @bot.callback_query_handler(func=lambda call: call.data != "")
+        def plan(call):
+            if(call.data == "200" or call.data == "400" or call.data == "600"):
+                if(clientLogged.execute(call.message.chat.id)):
+                    buttons.contract_plan(call.message, call.data)
+                else:
+                    buttons.is_client(call.message)
+            elif(call.data == "not_client"):
+                init_form(bot, call.message, 'create')
+            elif(call.data == "is_client"):
+                init_form(bot, call.message, 'is_client')
+            elif(call.data == "not_contract"):
+                bot.send_message(
+                            call.message.chat.id, 'Contratação do plano cancelada')
+            elif("yes_contract_" in call.data):
+                plan = call.data.replace('yes_contract_', '')
+                CreatePayment().execute(call.message.chat.id, plan)
+                pdf = Generate_pdf().execute(str(call.message.chat.id), plan)
+                bot.send_document(chat_id=call.message.chat.id, document=open(pdf, 'rb'))
+                os.remove(pdf)
+                bot.send_message(
+                            call.message.chat.id, 'Após o pagamento do boleto a instalação será feita em até 7 dias uteis')
 
-        @bot.message_handler(commands=['menu'])
-        def handle_menu(message):
-            menu.send_main_menu(message)
+            #bot.answer_callback_query(callback_query_id=call.id)
+            bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
 
         @bot.message_handler(func=lambda message: True)
         def listening(message):
@@ -35,13 +64,11 @@ class Telegram:
                 if(menuchoice == False):
                     match = Matcher().execute(message.text)
                     if (match == 1):
-                        bot.send_message(
-                            message.chat.id, 'Por favor, preencha o formulário.')
-                        init_form(bot, message)
+                        buttons.plans(message)
                     elif (match == 2):
                         bot.send_message(
                             message.chat.id, 'Para verificar se o plano está disponivel na sua região por favor preencha o formulário.')
-                        init_form(bot, message)
+                        init_form(bot, message, 'create')
                     else:
                         gen = TextGeneration()
                         bot.send_message(
