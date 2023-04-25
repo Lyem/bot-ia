@@ -1,14 +1,15 @@
 from core.clients.application.use_cases import ClientCreate, ClientExist
+import re
 
 form = {
     "create": [
-            {'key': 'name', 'question': 'Qual é o seu nome?'},
-            {'key': 'cell', 'question': 'Qual é o seu numero de telefone'},
-            {'key': 'cep', 'question': 'Qual é o seu cep?'},
-            {'key': 'home_number', 'question': 'Qual é o numero da sua casa?'},
-            {'key': 'cpf', 'question': 'Qual é o seu cpf?'},
+            {'key': 'name', 'question': 'Qual é o seu nome?', 'validate': None},
+            {'key': 'cell', 'question': 'Qual é o seu numero de telefone', 'validate': r"^\(?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])\)? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$"},
+            {'key': 'cep', 'question': 'Qual é o seu cep?', 'validate': r"(\d){5}(\d){3}"},
+            {'key': 'home_number', 'question': 'Qual é o numero da sua casa?', 'validate': r"^[0-9]*$"},
+            {'key': 'cpf', 'question': 'Qual é o seu cpf?', 'validate': r"([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})"},
         ],
-    "is_client": [{'key': 'cpf', 'question': 'Qual é o seu cpf?'}]
+    "is_client": [{'key': 'cpf', 'question': 'Qual é o seu cpf?', 'validate': r"([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})"}]
 }
 
 user_data = {}
@@ -16,8 +17,17 @@ user_data = {}
 def save_answer(bot, message):
     step = user_data[str(message.chat.id)]['step']
     key = form[user_data[str(message.chat.id)]['type']][step]['key']
-    user_data[str(message.chat.id)]['form'][key] = message.text
-    user_data[str(message.chat.id)]['step'] += 1
+    if(form[user_data[str(message.chat.id)]['type']][step]['validate'] == None):
+        user_data[str(message.chat.id)]['form'][key] = message.text
+        user_data[str(message.chat.id)]['step'] += 1
+    else:
+        pat = re.compile(form[user_data[str(message.chat.id)]['type']][step]['validate'])
+        if re.fullmatch(pat, message.text):
+            user_data[str(message.chat.id)]['form'][key] = message.text
+            user_data[str(message.chat.id)]['step'] += 1
+        else:
+            bot.send_message(
+                message.chat.id, 'Valor invalido')
     if user_data[str(message.chat.id)]['step'] < len(form[user_data[str(message.chat.id)]['type']]):
         ask_question(bot, message)
     else:

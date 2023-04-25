@@ -69,11 +69,25 @@ class Telegram:
                         bot.send_message(
                             message.chat.id, 'Para verificar se o plano está disponivel na sua região por favor preencha o formulário.')
                         init_form(bot, message, 'create')
+                    elif (match == 3):
+                        buttons.plans(message)
                     else:
                         gen = TextGeneration()
                         bot.send_message(
                             message.chat.id, gen.execute(message.text))
             else:
                 save_answer(bot, message)
+        
+        @bot.message_handler(content_types=['voice'])
+        def handle_audio(message):
+            duration = message.voice.duration
+            #print(message)
+            file_id = message.voice.file_id
+            file_info = bot.get_file(file_id)
+            file_path = file_info.file_path
+            #file = bot.download_file(file_path)
+            bot.send_message(
+                            message.chat.id, f'file info: {file_info} \nduração: {duration} \ncaminho do arquivo: {file_path}\narquivo: ')
+
 
         bot.polling()
