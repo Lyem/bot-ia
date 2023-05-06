@@ -39,6 +39,6 @@ class Menus:
                         os.remove(pdf)
                 self.send_main_menu(message)
             else:
-                self.buttons.is_client(message)
+                self.buttons.is_client(message, 2)
             return True
         return False
