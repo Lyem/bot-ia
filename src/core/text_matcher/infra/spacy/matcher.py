@@ -9,7 +9,7 @@ plan_pattern = [[{'LOWER': 'quais'}, {'LOWER': 'são'}, {'LOWER': 'os'}, {
     'LOWER': 'planos'}], [{'LOWER': 'planos'}], [{'LOWER': 'planos'}, {'LOWER': 'disponiveis'}]]
 
 availability_pattern = [
-    [{'LOWER': 'disponivel'}, {'LOWER': 'na'}, {'LOWER': 'região'}], [{'LOWER': 'disponivel'}], [{'LOWER': 'disponibilidade'}]]
+    [{'LOWER': 'disponivel'}, {'LOWER': 'na'}, {'LOWER': 'região'}], [{'LOWER': 'disponivel'}], [{'LOWER': 'disponibilidade'}], [{'LOWER': 'disponível'}]]
 
 
 class TextMatcher(IMatcher):
