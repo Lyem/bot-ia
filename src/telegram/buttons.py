@@ -16,9 +16,9 @@ class Buttons:
 
         self.bot.send_message(message.chat.id, text='A empresa cat net possui 3 planos de internet, 200Mb no valor de 20 reais por mês, 400Mb no valor de 50 reais ao mês e de 600Mb por 99 reais ao mês', reply_markup=keyboard)
 
-    def is_client(self, message):
-        no = types.InlineKeyboardButton('não', callback_data='not_client')
-        yes = types.InlineKeyboardButton('sim', callback_data='is_client')
+    def is_client(self, message, route):
+        no = types.InlineKeyboardButton('não', callback_data=f'not_client#{route}')
+        yes = types.InlineKeyboardButton('sim', callback_data=f'is_client#{route}')
 
         keyboard = types.InlineKeyboardMarkup()
         keyboard.row(no, yes)

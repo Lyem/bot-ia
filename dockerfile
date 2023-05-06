@@ -5,9 +5,11 @@ RUN apt update && apt install -y --no-install-recommends \
     curl \
     wget \
     gcc \
+    ffmpeg \
     libmariadb-dev \
     vim \
-    wkhtmltopdf
+    wkhtmltopdf \
+    python3-pyaudio
 
 RUN useradd -ms /bin/bash python
 

@@ -23,7 +23,7 @@ class Menus:
             return True
         elif message.text == 'Suporte':
             self.bot.send_message(chat_id=message.chat.id, text='Entre em contato com o nosso especialista')
-            self.bot.send_contact(message.chat.id, '5511123456789', 'Suporte João', last_name='Silva')
+            self.bot.send_contact(message.chat.id, '5511942007799', 'Suporte do', last_name='vasco')
             return True
         elif message.text == 'Boletos':
             if(ClientLogged().execute(message.chat.id)):
@@ -39,6 +39,6 @@ class Menus:
                         os.remove(pdf)
                 self.send_main_menu(message)
             else:
-                self.buttons.is_client(message)
+                self.buttons.is_client(message, 2)
             return True
         return False

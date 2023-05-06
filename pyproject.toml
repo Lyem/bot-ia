@@ -18,6 +18,10 @@ telebot = "^0.0.5"
 pytelegrambotapi = "^4.11.0"
 chatterbot = "^1.0.8"
 pdfkit = "^1.0.0"
+speechrecognition = "^3.10.0"
+requests = "^2.30.0"
+pydub = "^0.25.1"
+pocketsphinx = "^5.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
