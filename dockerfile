@@ -6,7 +6,10 @@ RUN apt update && apt install -y --no-install-recommends \
     wget \
     gcc \
     ffmpeg \
-    libmariadb-dev \
+    build-essential \
+    python3-dev \
+    default-libmysqlclient-dev \
+
     vim \
     wkhtmltopdf \
     python3-pyaudio

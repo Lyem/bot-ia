@@ -7,6 +7,8 @@ services:
     command: ./.docker/start-app.sh
     volumes:
       - .:/home/python/app
+    networks:
+        - bot
 
   db:
     image: mysql:5.7
@@ -17,3 +19,9 @@ services:
       MYSQL_ROOT_PASSWORD: '${MYSQL_PASSWORD}'
     ports:
       - '9090:3306'
+    networks:
+        - bot
+
+networks:
+    bot:
+        driver: bridge
