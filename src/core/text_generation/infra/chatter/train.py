@@ -1,4 +1,7 @@
-train=[
+exclusions = ['Qual o seu nome?', 'Existe custo de instalação?',
+              'Quanto tempo para instalar?', 'Oi', 'Olá', 'Ola', 'Bom dia', 'Boa Tarde', 'Boa Noite']
+
+train = [
     'Oi',
     'Oi, tudo bem com você ? Meu nome é Felix Chatbot. Sou o assistente virtual da empresa Catnet em que posso ajuda-lo hoje?',
     'Qual o seu nome?',
@@ -9,7 +12,7 @@ train=[
     'Dentro de 7 dias uteis!',
 ]
 
-train2=[
+train2 = [
     'Olá',
     'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
     'Qual o seu nome?',
@@ -20,7 +23,7 @@ train2=[
     'Dentro de 7 dias uteis!',
 ]
 
-train3=[
+train3 = [
     'Ola',
     'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
     'Qual o seu nome?',
@@ -31,7 +34,7 @@ train3=[
     'Dentro de 7 dias uteis!',
 ]
 
-train4=[
+train4 = [
     'Bom dia',
     'Bom dia! Sou o Felix Chatbot. Assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
     'Qual o seu nome?',
@@ -42,7 +45,7 @@ train4=[
     'Dentro de 7 dias uteis!',
 ]
 
-train5=[
+train5 = [
     'Boa Tarde',
     'Boa Tarde! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet como posso ajuda-lo hoje?',
     'Qual o seu nome?',
@@ -53,7 +56,7 @@ train5=[
     'Dentro de 7 dias uteis!',
 ]
 
-train6=[
+train6 = [
     'Boa Noite',
     'Boa Noite! Meu nome é Felix Chatbot. Sou assistente virtual da empresa CatNet em que posso ser util hoje ?',
     'Qual o seu nome?',
@@ -64,7 +67,7 @@ train6=[
     'Dentro de 7 dias uteis!',
 ]
 
-train7=[
+train7 = [
     'Boa Noite',
     'Boa Noite! Meu nome é Felix Chatbot. Sou assistente virtual da empresa CatNet em que posso ser util hoje ?',
     'Qual o seu nome?',
@@ -74,6 +77,3 @@ train7=[
     'Quanto tempo demora para instalar?',
     'Dentro de 7 dias uteis!',
 ]
-
-
-
