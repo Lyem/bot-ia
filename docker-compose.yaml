@@ -7,3 +7,13 @@ services:
     command: ./.docker/start-app.sh
     volumes:
       - .:/home/python/app
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: '${MYSQL_DATABASE}'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+      MYSQL_ROOT_PASSWORD: '${MYSQL_PASSWORD}'
+    ports:
+      - '9090:3306'
