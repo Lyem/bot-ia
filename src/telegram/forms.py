@@ -70,6 +70,7 @@ def save_answer(bot, message):
                 result_form(bot, message)
             else:
                 bot.send_message(message.chat.id, 'O serviço não está disponivel na sua região ;-;')
+                Buttons(bot).helpyou(message.chat.id)
         elif(user_data[str(message.chat.id)]['type'] == 'is_client'):
             user_form = user_data[str(message.chat.id)]['form']
             if(ClientExist().execute(user_form['cpf'], message.chat.id)):
@@ -77,13 +78,16 @@ def save_answer(bot, message):
             else:
                 cpf = user_form['cpf']
                 bot.send_message(message.chat.id, f'Não foi encontrado nenhum cliente com o cpf {cpf}')
+                Buttons(bot).helpyou(message.chat.id)
         elif(user_data[str(message.chat.id)]['type'] == 'availability'):
             user_form = user_data[str(message.chat.id)]['form']
             ava = AvailabilityUseCase().execute(user_form['cep'])
             if(ava):
                 bot.send_message(message.chat.id, 'O serviço está disponivel na sua região!')
+                Buttons(bot).helpyou(message.chat.id)
             else:
                 bot.send_message(message.chat.id, 'O serviço não está disponivel na sua região ;-;')
+                Buttons(bot).helpyou(message.chat.id)
         user_data.pop(str(message.chat.id))
 
 

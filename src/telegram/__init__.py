@@ -1,5 +1,6 @@
 import os
 import io
+import re
 from .menus import Menus
 from telebot import TeleBot
 from .buttons import Buttons
@@ -33,29 +34,69 @@ class Telegram:
             bot.reply_to(
                 message, 'Oi, tudo bem com você ? Meu nome é Felix Chatbot. Sou o assistente virtual da empresa Catnet em que posso ajuda-lo hoje?')
             menu.send_main_menu(message)
+
+        supportMessages = [
+            '''
+            Verifique se os cabos estão todos conectados corretamente atrás do seu roteador 
+
+            https://www.youtube.com/watch?v=4t1Bj8v0Bes
+            ''',
+            '''
+            Desligue os equipamentos por aproximadamente 10 segundos e ligue-os novamente
+
+            https://www.youtube.com/watch?v=xR3xqK0wS3c&t=25s
+            ''',
+            '''
+            Verifique se o LED com nome de PON está aceso em vermelho, desconecte o cabo da fibra ótica e conecte novamente.
+
+            https://www.youtube.com/watch?v=_-DhMtO9rFk&t=399s
+            ''',
+            '''
+            Estou encaminhando você para um de nossos atendentes.
+            '''
+        ]
+
+        def autoSupport(message, number):
+            bot.send_message(message.chat.id, supportMessages[int(number)])
+
+            if int(number) < 3:
+                buttons.supportHelp(message, int(number) + 1)
         
         @bot.callback_query_handler(func=lambda call: call.data != "")
         def plan(call):
+            patternSupport = r"support_no#\d+"
+            matchSupport = re.match(patternSupport, call.data)
+            patternNotClient = r"not_client#\d+"
+            matchNotClient = re.match(patternNotClient, call.data)
+            patternIsClient = r"is_client#\d+"
+            matchIsClient = re.match(patternIsClient, call.data)
+
             if(call.data == "200" or call.data == "400" or call.data == "600"):
                 if(clientLogged.execute(call.message.chat.id)):
                     buttons.contract_plan(call.message, call.data)
                 else:
                     buttons.is_client(call.message, 0)
-            elif(call.data == "not_client#0"):
-                init_form(bot, call.message, 'create', 0)
-            elif(call.data == "is_client#0"):
-                init_form(bot, call.message, 'is_client', 0)
-            elif(call.data == "not_client#1"):
-                init_form(bot, call.message, 'create', 1)
-            elif(call.data == "is_client#1"):
-                init_form(bot, call.message, 'is_client', 1)
-            elif(call.data == "not_client#2"):
-                init_form(bot, call.message, 'create', 2)
-            elif(call.data == "is_client#2"):
-                init_form(bot, call.message, 'is_client', 2)
+            elif(matchNotClient):
+                num = call.data.split('#')[1]
+                init_form(bot, call.message, 'create', num)
+            elif(matchIsClient):
+                num = call.data.split('#')[1]
+                init_form(bot, call.message, 'is_client', num)
+            elif(call.data == "support_no"):
+                buttons.helpyou(call.message)
+            elif(call.data == "support_yes"):
+                autoSupport(call.message, 0)
+            elif(matchSupport):
+                num = call.data.split('#')[1]
+                autoSupport(call.message, num)
+            elif(call.data == "help_no"):
+                bot.send_message(call.message.chat.id, 'Obrigado por entrar em contato com a CatNet, até mais.') 
+            elif(call.data == "help_yes"):
+                bot.send_message(call.message.chat.id, 'Oi, tudo bem com você ? Meu nome é Felix Chatbot. Sou o assistente virtual da empresa Catnet em que posso ajuda-lo hoje?')
             elif(call.data == "not_contract"):
                 bot.send_message(
                             call.message.chat.id, 'Contratação do plano cancelada')
+                buttons.helpyou(call.message.chat.id)
             elif("yes_contract_" in call.data):
                 plan = call.data.replace('yes_contract_', '')
                 CreatePayment().execute(call.message.chat.id, plan)
@@ -64,6 +105,7 @@ class Telegram:
                 os.remove(pdf)
                 bot.send_message(
                             call.message.chat.id, 'Após o pagamento do boleto a instalação será feita em até 7 dias uteis')
+                buttons.helpyou(call.message.chat.id)
             bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
 
         def answer(bot, message, text):

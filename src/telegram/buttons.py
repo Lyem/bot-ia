@@ -25,6 +25,34 @@ class Buttons:
 
         self.bot.send_message(message.chat.id, text='já é cliente?', reply_markup=keyboard)
     
+    def support(self, message):
+        no = types.InlineKeyboardButton('não', callback_data="support_no")
+        yes = types.InlineKeyboardButton('sim', callback_data="support_yes")
+
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.row(no, yes)
+
+        self.bot.send_message(message.chat.id, text='Você escolheu suporte técnico, antes de entrar em contato com nosso suporte técnico, precisamos que você realize alguns procedimentos.', reply_markup=keyboard)
+    
+    def supportHelp(self, message, number):
+        no = types.InlineKeyboardButton('não', callback_data=f'support_no#{number}')
+        yes = types.InlineKeyboardButton('sim', callback_data="support_no")
+
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.row(no, yes)
+
+        self.bot.send_message(message.chat.id, text='Esse procedimento ajudou a restaurar o sinal da sua internet ?', reply_markup=keyboard)
+    
+    def helpyou(self, message):
+        no = types.InlineKeyboardButton('não', callback_data="help_no")
+        yes = types.InlineKeyboardButton('sim', callback_data="help_yes")
+
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.row(no, yes)
+
+        self.bot.send_message(message.chat.id, text='Posso ajuda-lo em algo mais ?', reply_markup=keyboard)
+
+
     def contract_plan(self, message, plan):
         no = types.InlineKeyboardButton('não', callback_data='not_contract')
         yes = types.InlineKeyboardButton('sim', callback_data=f'yes_contract_{plan}')
