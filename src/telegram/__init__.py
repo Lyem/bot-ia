@@ -61,7 +61,7 @@ class Telegram:
 
             if int(number) < 3:
                 buttons.supportHelp(message, int(number) + 1)
-        
+
         @bot.callback_query_handler(func=lambda call: call.data != "")
         def plan(call):
             patternSupport = r"support_no#\d+"
@@ -71,48 +71,52 @@ class Telegram:
             patternIsClient = r"is_client#\d+"
             matchIsClient = re.match(patternIsClient, call.data)
 
-            if(call.data == "200" or call.data == "400" or call.data == "600"):
-                if(clientLogged.execute(call.message.chat.id)):
+            if (call.data == "200" or call.data == "400" or call.data == "600"):
+                if (clientLogged.execute(call.message.chat.id)):
                     buttons.contract_plan(call.message, call.data)
                 else:
                     buttons.is_client(call.message, 0)
-            elif(matchNotClient):
+            elif (matchNotClient):
                 num = call.data.split('#')[1]
                 init_form(bot, call.message, 'create', num)
-            elif(matchIsClient):
+            elif (matchIsClient):
                 num = call.data.split('#')[1]
                 init_form(bot, call.message, 'is_client', num)
-            elif(call.data == "support_no"):
-                buttons.helpyou(call.message)
-            elif(call.data == "support_yes"):
+            elif (call.data == "support_no"):
+                buttons.helpyou(call.message.chat.id)
+            elif (call.data == "support_yes"):
                 autoSupport(call.message, 0)
-            elif(matchSupport):
+            elif (matchSupport):
                 num = call.data.split('#')[1]
                 autoSupport(call.message, num)
-            elif(call.data == "help_no"):
-                bot.send_message(call.message.chat.id, 'Obrigado por entrar em contato com a CatNet, até mais.') 
-            elif(call.data == "help_yes"):
-                bot.send_message(call.message.chat.id, 'Oi, tudo bem com você ? Meu nome é Felix Chatbot. Sou o assistente virtual da empresa Catnet em que posso ajuda-lo hoje?')
-            elif(call.data == "not_contract"):
+            elif (call.data == "help_no"):
                 bot.send_message(
-                            call.message.chat.id, 'Contratação do plano cancelada')
+                    call.message.chat.id, 'Obrigado por entrar em contato com a CatNet, até mais.')
+            elif (call.data == "help_yes"):
+                bot.send_message(
+                    call.message.chat.id, 'Oi, tudo bem com você ? Meu nome é Felix Chatbot. Sou o assistente virtual da empresa Catnet em que posso ajuda-lo hoje?')
+            elif (call.data == "not_contract"):
+                bot.send_message(
+                    call.message.chat.id, 'Contratação do plano cancelada')
                 buttons.helpyou(call.message.chat.id)
-            elif("yes_contract_" in call.data):
+            elif ("yes_contract_" in call.data):
                 plan = call.data.replace('yes_contract_', '')
                 CreatePayment().execute(call.message.chat.id, plan)
                 pdf = Generate_pdf().execute(str(call.message.chat.id), plan)
-                bot.send_document(chat_id=call.message.chat.id, document=open(pdf, 'rb'))
+                bot.send_document(chat_id=call.message.chat.id,
+                                  document=open(pdf, 'rb'))
                 os.remove(pdf)
                 bot.send_message(
-                            call.message.chat.id, 'Após o pagamento do boleto a instalação será feita em até 7 dias uteis')
+                    call.message.chat.id, 'Após o pagamento do boleto a instalação será feita em até 7 dias uteis')
                 buttons.helpyou(call.message.chat.id)
-            bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
+            bot.delete_message(chat_id=call.message.chat.id,
+                               message_id=call.message.message_id)
 
         def answer(bot, message, text):
             bot.send_chat_action(message.chat.id, 'typing')
             if (str(message.chat.id) not in user_data):
                 menuchoice = menu.process_choice(message)
-                if(menuchoice == False):
+                if (menuchoice == False):
                     match = Matcher().execute(text)
                     if (match == 1):
                         buttons.plans(message)
@@ -132,8 +136,7 @@ class Telegram:
         @bot.message_handler(func=lambda message: True)
         def listening(message):
             answer(bot, message, message.text)
-            
-        
+
         @bot.message_handler(content_types=['voice'])
         def handle_audio(message):
             file_id = message.voice.file_id
@@ -142,14 +145,15 @@ class Telegram:
             audio_url = f'https://api.telegram.org/file/bot{bot.token}/{file_path}'
             response = Http.get(audio_url)
             path = os.path.join(os.getcwd(), 'src', 'core',
-                            'audio_to_text', 'infra', f'{file_id}.wav')
+                                'audio_to_text', 'infra', f'{file_id}.wav')
             if response.status == 200:
-                audio_segment = AudioSegment.from_ogg(io.BytesIO(response.content))
+                audio_segment = AudioSegment.from_ogg(
+                    io.BytesIO(response.content))
                 audio_segment.export(path, format='wav')
                 text = AudioToTextUseCase().execute(path)
                 os.remove(path)
-                if(text == 'Não consegui entender o que você falou'):
-                    bot.send_message(message.chat.id,text)
+                if (text == 'Não consegui entender o que você falou'):
+                    bot.send_message(message.chat.id, text)
                 else:
                     answer(bot, message, text)
 
