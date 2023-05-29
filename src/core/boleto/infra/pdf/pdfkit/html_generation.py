@@ -75,7 +75,7 @@ def generate_html(price: str, plan: str):
         <body>
             <div id="boleto">
                 <div id="logo">
-                    <img src="https://media.discordapp.net/attachments/1098759004425040006/1098776050265227274/logo.jpg" alt="Logo">
+                    <img src="https://media.discordapp.net/attachments/1098759004425040005/1112881178236682270/botnet.png" alt="Logo">
                 </div>
                 <div id="endereco">
                     <p>bot net</p>
