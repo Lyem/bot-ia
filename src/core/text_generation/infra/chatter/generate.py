@@ -7,7 +7,7 @@ from chatterbot.response_selection import get_most_frequent_response
 path = os.path.join(os.getcwd(), 'src', 'core',
                     'text_generation', 'infra', 'chatter')
 chatbot = ChatBot(
-    "FelixBot",
+    "bot netBot",
     storage_adapter="chatterbot.storage.SQLStorageAdapter",
     database_uri=f"sqlite:///{os.path.join(path, 'database.sqlite3')}",
     logic_adapters=[

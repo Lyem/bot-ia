@@ -26,7 +26,7 @@ class Generate:
     def execute(self, txt: str) -> str:
         path = os.path.join(os.getcwd(), 'src', 'core',
                             'text_generation', 'infra', 'openia')
-        df = pd.read_csv(os.path.join(path, 'catnet_embedding.csv'))
+        df = pd.read_csv(os.path.join(path, 'bot net_embedding.csv'))
         question_embedding = self.embedding(txt)
         df['similarity'] = df['embedding'].apply(
             lambda v: json.loads(v)
@@ -45,9 +45,9 @@ class Generate:
     def generate_csv_embedding(self):
         path = os.path.join(os.getcwd(), 'src', 'core',
                             'text_generation', 'infra', 'openia')
-        df = pd.read_csv(os.path.join(path, 'catnet.csv'))
+        df = pd.read_csv(os.path.join(path, 'bot net.csv'))
         df['embedding'] = df['resume'].apply(self.embedding)
-        df.to_csv(os.path.join(path, "catnet_embedding.csv"), index=False)
+        df.to_csv(os.path.join(path, "bot net_embedding.csv"), index=False)
 
 
 if __name__ == "__main__":

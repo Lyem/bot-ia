@@ -16,7 +16,7 @@ class Buttons:
         keyboard.add(internet600)
 
         self.bot.send_message(
-            message.chat.id, text='A empresa cat net possui 3 planos de internet, 200Mb no valor de 20 reais por mês, 400Mb no valor de 50 reais ao mês e de 600Mb por 99 reais ao mês', reply_markup=keyboard)
+            message.chat.id, text='A empresa bot net possui 3 planos de internet, 200Mb no valor de 20 reais por mês, 400Mb no valor de 50 reais ao mês e de 600Mb por 99 reais ao mês', reply_markup=keyboard)
 
     def is_client(self, message, route):
         no = types.InlineKeyboardButton(

@@ -78,7 +78,7 @@ def generate_html(price: str, plan: str):
                     <img src="https://media.discordapp.net/attachments/1098759004425040006/1098776050265227274/logo.jpg" alt="Logo">
                 </div>
                 <div id="endereco">
-                    <p>Cat Net</p>
+                    <p>bot net</p>
                     <p>Endereço da Empresa</p>
                     <p>Cidade/Estado - CEP</p>
                     <p>CNPJ: 00.000.000/0000-00</p>

@@ -32,7 +32,7 @@ class Telegram:
         @bot.message_handler(commands=['start'])
         def send_welcome(message):
             bot.reply_to(
-                message, 'Oi, tudo bem com você ? Meu nome é Felix Chatbot. Sou o assistente virtual da empresa Catnet em que posso ajuda-lo hoje?')
+                message, 'Oi, tudo bem com você ? Meu nome é bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?')
             menu.send_main_menu(message)
 
         supportMessages = [
@@ -91,10 +91,10 @@ class Telegram:
                 autoSupport(call.message, num)
             elif (call.data == "help_no"):
                 bot.send_message(
-                    call.message.chat.id, 'Obrigado por entrar em contato com a CatNet, até mais.')
+                    call.message.chat.id, 'Obrigado por entrar em contato com a bot net, até mais.')
             elif (call.data == "help_yes"):
                 bot.send_message(
-                    call.message.chat.id, 'Oi, tudo bem com você ? Meu nome é Felix Chatbot. Sou o assistente virtual da empresa Catnet em que posso ajuda-lo hoje?')
+                    call.message.chat.id, 'Oi, tudo bem com você ? Meu nome é bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?')
             elif (call.data == "not_contract"):
                 bot.send_message(
                     call.message.chat.id, 'Contratação do plano cancelada')

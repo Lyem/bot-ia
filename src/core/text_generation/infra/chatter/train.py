@@ -3,9 +3,9 @@ exclusions = ['Qual o seu nome?', 'Existe custo de instalação?',
 
 train = [
     'Oi',
-    'Oi, tudo bem com você ? Meu nome é Felix Chatbot. Sou o assistente virtual da empresa Catnet em que posso ajuda-lo hoje?',
+    'Oi, tudo bem com você ? Meu nome é bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Qual o seu nome?',
-    'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
+    'Olá! Me chamo bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Existe custo de instalação?',
     'Não existe custo de instalação!',
     'Quanto tempo para instalar?',
@@ -14,9 +14,9 @@ train = [
 
 train2 = [
     'Olá',
-    'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
+    'Olá! Me chamo bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Qual o seu nome?',
-    'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
+    'Olá! Me chamo bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Existe custo de instalação?',
     'Não existe custo de instalação!',
     'Quanto tempo para instalar?',
@@ -25,9 +25,9 @@ train2 = [
 
 train3 = [
     'Ola',
-    'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
+    'Olá! Me chamo bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Qual o seu nome?',
-    'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
+    'Olá! Me chamo bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Existe custo de instalação?',
     'Não existe custo de instalação!',
     'Quanto tempo para instalar?',
@@ -36,9 +36,9 @@ train3 = [
 
 train4 = [
     'Bom dia',
-    'Bom dia! Sou o Felix Chatbot. Assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
+    'Bom dia! Sou o bot net Chatbot. Assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Qual o seu nome?',
-    'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
+    'Olá! Me chamo bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Existe custo de instalação?',
     'Não existe custo de instalação!',
     'Quanto tempo para instalar?',
@@ -47,9 +47,9 @@ train4 = [
 
 train5 = [
     'Boa Tarde',
-    'Boa Tarde! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet como posso ajuda-lo hoje?',
+    'Boa Tarde! Me chamo bot net Chatbot. Sou o assistente virtual da empresa bot net como posso ajuda-lo hoje?',
     'Qual o seu nome?',
-    'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
+    'Olá! Me chamo bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Existe custo de instalação?',
     'Não existe custo de instalação!',
     'Quanto tempo para instalar?',
@@ -58,9 +58,9 @@ train5 = [
 
 train6 = [
     'Boa Noite',
-    'Boa Noite! Meu nome é Felix Chatbot. Sou assistente virtual da empresa CatNet em que posso ser util hoje ?',
+    'Boa Noite! Meu nome é bot net Chatbot. Sou assistente virtual da empresa bot net em que posso ser util hoje ?',
     'Qual o seu nome?',
-    'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
+    'Olá! Me chamo bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Existe custo de instalação?',
     'Não existe custo de instalação!',
     'Quanto tempo para instalar?',
@@ -69,9 +69,9 @@ train6 = [
 
 train7 = [
     'Boa Noite',
-    'Boa Noite! Meu nome é Felix Chatbot. Sou assistente virtual da empresa CatNet em que posso ser util hoje ?',
+    'Boa Noite! Meu nome é bot net Chatbot. Sou assistente virtual da empresa bot net em que posso ser util hoje ?',
     'Qual o seu nome?',
-    'Olá! Me chamo Felix Chatbot. Sou o assistente virtual da empresa CatNet em que posso ajuda-lo hoje?',
+    'Olá! Me chamo bot net Chatbot. Sou o assistente virtual da empresa bot net em que posso ajuda-lo hoje?',
     'Existe custo de instalação?',
     'Não existe custo de instalação!',
     'Quanto tempo demora para instalar?',
